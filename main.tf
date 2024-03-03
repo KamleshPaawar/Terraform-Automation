@@ -41,9 +41,20 @@ resource "aws_security_group" "jenkins-sg-2022" {
     Name = var.security_group
   }
 }
-
+data "aws_ami" "amz_img" {
+    most_recent = true
+  owners = ["amazon"]
+  filter {
+    name = "name"
+    values = [ "amzn2-ami-hvm-*-x86_64-gp2" ]
+  }
+  filter {
+    name = "virtualization-type"
+    values = [ "hvm" ]
+  }
+}
 resource "aws_instance" "myFirstInstance" {
-  ami           = var.ami_id
+  ami           = data.aws_ami.amz_img.id
   key_name = var.key_name
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.jenkins-sg-2022.id]
