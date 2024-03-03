@@ -53,7 +53,7 @@ resource "aws_instance" "myFirstInstance" {
 }
 
 # Create Elastic IP address
-resource "aws_eip" "myFirstInstance" {
+resource "aws_eip" "myFirstInstance-1" {
   vpc      = true
   instance = aws_instance.myFirstInstance.id
 tags= {
